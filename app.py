@@ -1,4 +1,4 @@
-#Nombre: Eric Railef Mansilla
+#Nombre: Yerko Aranda Muñoz
 #Aplicacion API-REST
 
 import requests
@@ -24,7 +24,7 @@ try:
     # =============================
 
     respuesta = requests.get(
-        f"{BASE_URL}/3001",
+        f"{BASE_URL}/19",
         timeout=10
     )
 
@@ -38,8 +38,47 @@ try:
 
     # ===========================
     # 2. METODO POST
-    # ============================
-
+    # ===========================
+    
+    print("\n POST --- Crear Producto ---")
+    
+    nuevo_producto = {
+        "title": "Teclado mecanico gamer",
+        "price": 90000,
+        "description": "Teclado para juegos",
+        "category": "electronics"        
+    }
+    
+    respuesta = requests.post(
+        f"{BASE_URL}/add",
+        json = nuevo_producto,
+        timeout = 10
+    )
+    
+    respuesta.raise_for_status()
+    mostrar_respuesta(respuesta)
+    
+    # ===============================
+    # 3. Metodo PUT
+    # ===============================
+    
+    print("\n --- PUT: Actualizar un producto ---")
+    
+    producto_actualizado = {
+        "title": "Notebook para desarrollar",
+        "price": 690000,
+        "description": "Notebook para programar",
+        "category": "laptops"
+    }
+    
+    respuesta = requests.put(
+        f"{BASE_URL}/1",
+        json = producto_actualizado,
+        timeout=10
+    )
+    
+    respuesta.raise_for_status()
+    mostrar_respuesta(respuesta)
 
 except requests.exceptions.Timeout:
     print("Error: se agoto el tiempo de espera")
